@@ -15,20 +15,20 @@ import serializationData.comment.Comment
 import serializationData.videoInf.VideoInf
 
 
-//fun main() = Window {
-//    var text by remember { mutableStateOf("Hello, World!") }
-//    MaterialTheme {
-//        Button(onClick = {
-//            text = "Hello, Desktop!"
-//            GlobalScope.launch {
-//                job()
-//            }
-//        }) {
-//            Text(text)
-//        }
-//    }
-//
-//}
+fun main() = Window {
+    var text by remember { mutableStateOf("Hello, World!") }
+    MaterialTheme {
+        Button(onClick = {
+            text = "Hello, Desktop!"
+            GlobalScope.launch {
+                job()
+            }
+        }) {
+            Text(text)
+        }
+    }
+
+}
 
 suspend fun job() = coroutineScope {
     launch {
