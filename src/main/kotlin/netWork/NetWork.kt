@@ -6,6 +6,7 @@ import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import serializationData.comment.Comment
 import serializationData.videoInf.VideoInf
@@ -60,6 +61,8 @@ object NetWork {
                     )
                 }
             Cache.cache.comments.add(comment)
+            client.close()
+            delay(1000L)
         }
     }
 }
