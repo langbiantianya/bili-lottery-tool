@@ -3,7 +3,7 @@
 #### 介绍
 用于小破站的评论抽取
 #### 软件架构
-软件架构说明使用kotlin加上ktor以及Composable桌面开发
+软件架构说明使用kotlin加上ktor以及compose for 桌面开发
 
 
 #### 安装教程
