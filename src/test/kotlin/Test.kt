@@ -7,7 +7,7 @@ import stochastic.Stochastic
 class Test {
     @Test
     fun test1() {
-        val stochastic = Stochastic("BV1f64y1x7ZQ")
+        val stochastic = Stochastic("BV1f64y1x7ZQ",3)
         runBlocking {
 
         }

@@ -13,7 +13,7 @@ data class Data(
     val cursor: Cursor,
     val hots: String?,
     val notice: String?,
-    val replies: List<Replies>?,
+    val replies: List<Replies>,
     val top: Top,
     val lottery_card: Unit?,
     val folder: Folder,

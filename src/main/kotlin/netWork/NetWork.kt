@@ -64,7 +64,7 @@ object NetWork {
             }
 //        comments.add(comment)
 //        client.close()
-        delay(1000L)
+        delay((1000L..5000L).random())
         return comment
     }
 //    }

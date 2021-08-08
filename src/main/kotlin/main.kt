@@ -12,14 +12,20 @@ import kotlinx.coroutines.launch
 
 
 fun main() = Window {
-    val stochastic = Stochastic("BV1f64y1x7ZQ")
+    val stochastic = Stochastic("BV1f64y1x7ZQ",3)
     var text by remember { mutableStateOf("Hello, World!") }
     var Gpage by remember { mutableStateOf(0) }
     MaterialTheme {
         Button(onClick = {
             text = "Hello, Desktop!"
 //            stochastic.getCache()
-
+//            GlobalScope.launch {
+//                stochastic.getAllCache()
+//                while (stochastic.isStop) {
+//                    Gpage = stochastic.gpage
+//                }
+//
+//            }
         }) {
             Text(Gpage.toString())
         }

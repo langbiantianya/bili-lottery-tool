@@ -6,42 +6,60 @@ import netWork.NetWork
 
 class Stochastic(private val BVid: String, private var people: Int) {
     var userInfs: MutableList<UserInf> = mutableListOf()
-    var page = 0
+    var page = 2
     lateinit var cache: Cache
-    val result: MutableList<UserInf> = mutableListOf()
+    val result: MutableSet<UserInf> = mutableSetOf()
 
     suspend fun initStochastic() {
         getCache()
-        NumberOfJudgments()
+        numberOfJudgments()
+        println(result)
     }
 
-    suspend fun getAllCache() {
-        page = cache.page
-        while (--page > 1) {
-            cache.comments.add(NetWork.getComment(page, cache.oldID))
+    private suspend fun getAllCache() {
+        while (cache.comments.last().data.cursor.is_end) {
+            cache.comments.add(NetWork.getComment(page++, cache.oldID))
+            println(page)
         }
     }
 
-    suspend fun getCache() {
+    private suspend fun getCache() {
         cache = NetWork.firstConnect(BVid);
+        page = cache.page
     }
 
-    suspend fun NumberOfJudgments() {
-        if (page < 20) {
-            getAllCache()
-            cache.comments.forEach { comment ->
-                comment.data.replies?.forEach {
-                    userInfs.add(UserInf(it.mid, it.member.uname))
-                    userInfs = userInfs.toSet().toMutableList()
-                }
+    private suspend fun numberOfJudgments() {
+//        if (page < 20) {
+        getAllCache()
+        cache.comments.forEach { comment ->
+            comment.data.replies?.forEach {
+                userInfs.add(UserInf(it.mid, it.member.uname))
+                userInfs = userInfs.toSet().toMutableList()
             }
-            while (people-- > 0) {
-                result.add(userInfs.random())
-            }
-
-        } else {
-
         }
+        while (result.size < people) {
+            result.add(userInfs.random())
+        }
+
+//        }
+//        else {
+//            val randomNumber: MutableSet<Int> = mutableSetOf()
+//
+//            while (randomNumber.size < people) {
+//                randomNumber.add((1..cache.comments[0].data.cursor.all_count).random())
+//            }
+//            println(randomNumber)
+//            randomNumber.forEach {
+//                val npage = if (it % 20 == 0) it / 20 else it / 20 + 1
+//                val num = if (it % 20 == 0) 20 else it % 20
+//                val comment = NetWork.getComment(npage, cache.oldID)
+//                println(num)
+//                println(comment.data.replies)
+//                comment.data.replies[num - 1]
+//                    .let { it2 -> result.add(it2?.let { it1 -> UserInf(it1.mid, it1.member.uname) }) }
+//            }
+//
+//        }
     }
 
 
