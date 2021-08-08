@@ -47,9 +47,10 @@ object NetWork {
 
     }
 
-    suspend fun getComment(page: Int, oldID: Long) {
+    suspend fun getComment(page: Int, oldID: Long): Comment {
 //    = coroutineScope {
 //        launch {
+//        val comments:MutableList<Comment> = mutableListOf<Comment>()
         val client = HttpClient() {
             install(JsonFeature) {
                 serializer = GsonSerializer()
@@ -61,9 +62,10 @@ object NetWork {
                     ContentType.Application.Json
                 )
             }
-        Cache.cache.comments.add(comment)
-        client.close()
+//        comments.add(comment)
+//        client.close()
         delay(1000L)
+        return comment
     }
 //    }
 }

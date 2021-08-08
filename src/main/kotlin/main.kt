@@ -19,13 +19,7 @@ fun main() = Window {
         Button(onClick = {
             text = "Hello, Desktop!"
 //            stochastic.getCache()
-            GlobalScope.launch {
-                stochastic.getAllCache()
-                while (stochastic.isStop) {
-                    Gpage = stochastic.gpage
-                }
 
-            }
         }) {
             Text(Gpage.toString())
         }

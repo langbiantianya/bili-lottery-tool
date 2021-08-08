@@ -1,20 +1,25 @@
 package stochastic
 
 import cache.Cache
+import cache.Result
 import cache.UserInf
 import netWork.NetWork
-import serializationData.videoInf.VideoInf
 
-class Stochastic(private val BVid: String) {
-    var userInf: UserInf = UserInf(mutableListOf())
+class Stochastic(private val BVid: String, private var people: Int) {
+    var userInfs: MutableList<UserInf> = mutableListOf()
     var page = 0
     lateinit var cache: Cache
+    val result: MutableList<UserInf> = mutableListOf()
 
+    suspend fun initStochastic() {
+        getCache()
+        NumberOfJudgments()
+    }
 
     suspend fun getAllCache() {
-        page = Cache.cache.page
+        page = cache.page
         while (--page > 1) {
-            NetWork.getComment(page, Cache.cache.oldID)
+            cache.comments.add(NetWork.getComment(page, cache.oldID))
         }
     }
 
@@ -25,12 +30,16 @@ class Stochastic(private val BVid: String) {
     suspend fun NumberOfJudgments() {
         if (page < 20) {
             getAllCache()
-            Cache.cache.comments.forEach { comment ->
+            cache.comments.forEach { comment ->
                 comment.data.replies?.forEach {
-                    userInf.uIDs.add(it.mid)
-                    userInf = UserInf(userInf.uIDs.toSet().toMutableList())
+                    userInfs.add(UserInf(it.mid, it.member.uname))
+                    userInfs = userInfs.toSet().toMutableList()
                 }
             }
+            while (people-- > 0) {
+                result.add(userInfs.random())
+            }
+
         } else {
 
         }

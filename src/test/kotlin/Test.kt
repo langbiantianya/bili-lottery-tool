@@ -9,10 +9,9 @@ class Test {
     fun test1() {
         val stochastic = Stochastic("BV1f64y1x7ZQ")
         runBlocking {
-            stochastic.getAllCache()
+
         }
 
-        println(Cache.cache.comments.size)
 
     }
 

@@ -1,3 +1,3 @@
 package cache
 
-data class UserInf(val uIDs: MutableList<Int>)
+data class UserInf(val uID: Int, val uName: String)
