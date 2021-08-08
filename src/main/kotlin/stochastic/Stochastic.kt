@@ -1,7 +1,6 @@
 package stochastic
 
 import cache.Cache
-import cache.Result
 import cache.UserInf
 import netWork.NetWork
 
