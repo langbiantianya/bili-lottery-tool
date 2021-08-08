@@ -1,23 +1,39 @@
 package stochastic
 
 import cache.Cache
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import cache.UserInf
 import netWork.NetWork
+import serializationData.videoInf.VideoInf
 
 class Stochastic(private val BVid: String) {
-    var isStop = false
-    var gpage = 0
+    var userInf: UserInf = UserInf(mutableListOf())
+    var page = 0
+    lateinit var cache: Cache
+
+
+    suspend fun getAllCache() {
+        page = Cache.cache.page
+        while (--page > 1) {
+            NetWork.getComment(page, Cache.cache.oldID)
+        }
+    }
 
     suspend fun getCache() {
-        NetWork.firstConnect(BVid).join();
-        var page = Cache.cache.page
-        while (--page > 1) {
-            NetWork.getComment(page, Cache.cache.oldID).join()
-            gpage = page
-        }
-        isStop = true
+        cache = NetWork.firstConnect(BVid);
+    }
 
+    suspend fun NumberOfJudgments() {
+        if (page < 20) {
+            getAllCache()
+            Cache.cache.comments.forEach { comment ->
+                comment.data.replies?.forEach {
+                    userInf.uIDs.add(it.mid)
+                    userInf = UserInf(userInf.uIDs.toSet().toMutableList())
+                }
+            }
+        } else {
+
+        }
     }
 
 

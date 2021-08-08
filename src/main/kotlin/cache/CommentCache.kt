@@ -2,4 +2,4 @@ package cache
 
 import serializationData.comment.Comment
 
-data class CommentCache(var comment: Comment)
+data class CommentCache(val comment: Comment)

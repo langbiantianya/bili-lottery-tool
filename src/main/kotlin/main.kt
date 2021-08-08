@@ -7,8 +7,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import stochastic.Stochastic
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -22,7 +20,7 @@ fun main() = Window {
             text = "Hello, Desktop!"
 //            stochastic.getCache()
             GlobalScope.launch {
-                stochastic.getCache()
+                stochastic.getAllCache()
                 while (stochastic.isStop) {
                     Gpage = stochastic.gpage
                 }
