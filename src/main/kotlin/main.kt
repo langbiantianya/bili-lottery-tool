@@ -6,15 +6,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.*
 import stochastic.Stochastic
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 fun main() = Window {
-    val stochastic = Stochastic("BV1f64y1x7ZQ",3)
+    val stochastic = Stochastic("BV1f64y1x7ZQ", 3)
     var text by remember { mutableStateOf("Hello, World!") }
     var Gpage by remember { mutableStateOf(0) }
+    suspend fun job() = coroutineScope {
+        launch { stochastic.initStochastic() }
+    }
     MaterialTheme {
         Button(onClick = {
             text = "Hello, Desktop!"
@@ -26,6 +28,9 @@ fun main() = Window {
 //                }
 //
 //            }
+            GlobalScope.launch {
+                job().job
+            }
         }) {
             Text(Gpage.toString())
         }

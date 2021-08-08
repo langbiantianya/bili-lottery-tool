@@ -2,10 +2,13 @@ package stochastic
 
 import cache.Cache
 import cache.UserInf
+import kotlinx.coroutines.delay
 import netWork.NetWork
 
 class Stochastic(private val BVid: String, private var people: Int) {
     var userInfs: MutableList<UserInf> = mutableListOf()
+
+    @Volatile
     var page = 2
     lateinit var cache: Cache
     val result: MutableSet<UserInf> = mutableSetOf()
@@ -14,18 +17,19 @@ class Stochastic(private val BVid: String, private var people: Int) {
         getCache()
         numberOfJudgments()
         println(result)
+        println(page)
     }
 
     private suspend fun getAllCache() {
-        while (cache.comments.last().data.cursor.is_end) {
+        while (!cache.comments.last().data.cursor.is_end) {
             cache.comments.add(NetWork.getComment(page++, cache.oldID))
-            println(page)
         }
+        page -= 2
+
     }
 
     private suspend fun getCache() {
         cache = NetWork.firstConnect(BVid);
-        page = cache.page
     }
 
     private suspend fun numberOfJudgments() {

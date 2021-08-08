@@ -51,6 +51,8 @@ object NetWork {
 //    = coroutineScope {
 //        launch {
 //        val comments:MutableList<Comment> = mutableListOf<Comment>()
+
+        println(page)
         val client = HttpClient() {
             install(JsonFeature) {
                 serializer = GsonSerializer()
@@ -64,7 +66,7 @@ object NetWork {
             }
 //        comments.add(comment)
 //        client.close()
-        delay((1000L..5000L).random())
+        delay((1000L..3000L).random())
         return comment
     }
 //    }
