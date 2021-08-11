@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.*
-import stochastic.Stochastic
+import logic.stochastic.Stochastic
 
 
 fun main() = Window {
@@ -20,11 +20,11 @@ fun main() = Window {
     MaterialTheme {
         Button(onClick = {
             text = "Hello, Desktop!"
-//            stochastic.getCache()
+//            logic.stochastic.getCache()
 //            GlobalScope.launch {
-//                stochastic.getAllCache()
-//                while (stochastic.isStop) {
-//                    Gpage = stochastic.gpage
+//                logic.stochastic.getAllCache()
+//                while (logic.stochastic.isStop) {
+//                    Gpage = logic.stochastic.gpage
 //                }
 //
 //            }

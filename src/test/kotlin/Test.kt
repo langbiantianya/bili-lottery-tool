@@ -1,8 +1,7 @@
-import cache.Cache
 import kotlinx.coroutines.runBlocking
 
 import org.junit.Test
-import stochastic.Stochastic
+import logic.stochastic.Stochastic
 
 class Test {
     @Test
