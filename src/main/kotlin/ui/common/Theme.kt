@@ -1,6 +1,7 @@
 ﻿package ui.common
 
 import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
@@ -27,7 +28,12 @@ object AppTheme {
         val color: Color = Color.White,
         val material: androidx.compose.material.Colors = lightColors(
             background = background,
-            primary = color
+            primary = Color.White,
+//            surface = Color.Blue,
+            onPrimary = Color.Gray,
+//            primaryVariant = Color.Red
+//            onBackground = Color.Green
+
         )
     )
 }

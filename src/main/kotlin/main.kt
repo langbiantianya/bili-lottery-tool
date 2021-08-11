@@ -14,6 +14,7 @@ import ui.MainView
 fun main() = Window(
     title = "哔哩哔哩视频评论抽奖工具"
 ) {
+//    var text by remember { mutableStateOf("") }
     MainView()
 //    val stochastic = Stochastic("BV1f64y1x7ZQ", 3)
 //    var text by remember { mutableStateOf("Hello, World!") }
