@@ -2,9 +2,10 @@
 
 #### 介绍
 用于小破站的评论抽取
+目前已经完成了逻辑部分
+正在进行UI部分
 #### 软件架构
-软件架构说明使用kotlin加上ktor以及compose for 桌面开发
-
+使用kotlin加上ktor以及compose
 
 #### 安装教程
 
