@@ -1,10 +1,9 @@
 ﻿package ui.result
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -55,6 +54,31 @@ fun Result() {
                     .padding(end = 50.dp)
             ) {
                 Text("按钮")
+            }
+        }
+        Text("正在获取xxx")
+        Column(
+            modifier = Modifier
+                .padding(top = 10.dp)
+                .border(2.dp, Color.Black)
+                .verticalScroll(rememberScrollState())
+        ) {
+
+            repeat(10) {
+                SelectionContainer {
+                    Row {
+                        Text(
+                            "UID: $it",
+                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 2.dp)
+                        )
+                        Text(
+                            "Name: $it",
+                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 3.dp, bottom = 2.dp)
+                        )
+                    }
+
+                }
+
             }
         }
     }
