@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.*
 import logic.stochastic.Stochastic
 import ui.MainView
+import ui.frontPage.FrontPage
 
 
 fun main() = Window(
