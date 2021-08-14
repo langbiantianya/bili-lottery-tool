@@ -4,7 +4,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 
 import ui.common.AppTheme
-import ui.frontPage.FrontPage
+import ui.bvidPage.BvidView
+import ui.result.LotteryView
 import ui.welcome.WelcomeView
 
 @Composable
@@ -17,7 +18,10 @@ fun MainView() {
                 WelcomeView(viewPage)
             }
             ViewEnumerate.FrontPage -> {
-                FrontPage()
+                BvidView(viewPage)
+            }
+            ViewEnumerate.Result -> {
+                LotteryView(viewPage)
             }
         }
 
