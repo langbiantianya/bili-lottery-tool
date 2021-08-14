@@ -20,7 +20,7 @@ fun MainView() {
             ViewEnumerate.FrontPage -> {
                 BvidView(viewPage)
             }
-            ViewEnumerate.Result -> {
+            ViewEnumerate.Lottery -> {
                 LotteryView(viewPage)
             }
         }

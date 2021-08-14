@@ -3,5 +3,5 @@
 enum class ViewEnumerate {
     WelcomeView,
     FrontPage,
-    Result
+    Lottery
 }

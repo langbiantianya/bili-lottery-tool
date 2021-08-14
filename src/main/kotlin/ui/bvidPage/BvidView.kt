@@ -13,7 +13,7 @@ import ui.ViewEnumerate
 import ui.common.AppTheme
 
 @Composable
-fun BvidView(view: MutableState<ViewEnumerate>) {
+fun BvidView(viewEnumerate: MutableState<ViewEnumerate>) {
     var text by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
@@ -40,6 +40,7 @@ fun BvidView(view: MutableState<ViewEnumerate>) {
             Button(
                 onClick = {
                     println(text)
+                    viewEnumerate.value = ViewEnumerate.Lottery
                 },
                 modifier = Modifier
                     .height(53.dp)
