@@ -13,8 +13,7 @@ import ui.ViewEnumerate
 import ui.common.AppTheme
 
 @Composable
-fun BvidView(viewEnumerate: MutableState<ViewEnumerate>) {
-    var text by remember { mutableStateOf("") }
+fun BvidView(viewEnumerate: MutableState<ViewEnumerate>, bvid: MutableState<String>) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,15 +31,16 @@ fun BvidView(viewEnumerate: MutableState<ViewEnumerate>) {
                 .fillMaxSize()
         ) {
             OutlinedTextField(
-                value = text,
-                onValueChange = { text = it },
+                value = bvid.value,
+                onValueChange = { bvid.value = it },
                 label = { Text("BV号 如\"BV14q4y1p7Ka\"") },
                 maxLines = 1,
             )
             Button(
                 onClick = {
-                    println(text)
+                    println(bvid.value)
                     viewEnumerate.value = ViewEnumerate.Lottery
+
                 },
                 modifier = Modifier
                     .height(53.dp)

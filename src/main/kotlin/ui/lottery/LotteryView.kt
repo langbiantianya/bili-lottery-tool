@@ -14,12 +14,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import logic.stochastic.Stochastic
 import ui.ViewEnumerate
 import ui.common.AppTheme
 
 @Composable
-fun LotteryView(view: MutableState<ViewEnumerate>) {
-    var text by remember { mutableStateOf("") }
+fun LotteryView(view: MutableState<ViewEnumerate>, stochastic: Stochastic) {
+    var people by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,7 +30,7 @@ fun LotteryView(view: MutableState<ViewEnumerate>) {
             .border(1.dp, Color.Black)
 
     ) {
-        Text("VideoTitle", fontSize = 40.sp, modifier = Modifier.padding(top = 10.dp))
+        Text("${stochastic.cache.videInfo.data.title}", fontSize = 40.sp, modifier = Modifier.padding(top = 10.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -40,13 +41,15 @@ fun LotteryView(view: MutableState<ViewEnumerate>) {
         ) {
 
             OutlinedTextField(
-                value = text,
-                onValueChange = { text = it },
+                value = people,
+                onValueChange = { people = it },
                 label = { Text("抽奖人数") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
             Button(
-                onClick = {},
+                onClick = {
+                    println(people.toInt())
+                },
                 modifier = Modifier
                     .padding(end = 50.dp)
             ) {

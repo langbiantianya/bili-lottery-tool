@@ -1,40 +1,56 @@
 package logic.stochastic
 
+import androidx.compose.runtime.MutableState
+import kotlinx.coroutines.delay
 import util.cache.Cache
 import util.cache.UserInf
 import util.netWork.NetWork
 
-class Stochastic(private val BVid: String, private var people: Int) {
+class Stochastic() {
+    var BVid: String = ""
+    var people: Int = 1
     var userInfs: MutableList<UserInf> = mutableListOf()
 
     @Volatile
     var page = 2
+
+    @Volatile
     lateinit var cache: Cache
     val result: MutableSet<UserInf> = mutableSetOf()
 
-    suspend fun initStochastic() {
-        getCache()
-        numberOfJudgments()
-        println(result)
-        println(page)
-    }
 
-    private suspend fun getAllCache() {
-        while (!cache.comments.last().data.cursor.is_end) {
-            cache.comments.add(NetWork.getComment(page++, cache.oldID))
+    suspend fun getAllCache() {
+        while (!cache!!.comments.last().data.cursor.is_end) {
+            cache!!.comments.add(NetWork.getComment(page++, cache!!.oldID))
         }
         page -= 2
 
     }
 
-    private suspend fun getCache() {
-        cache = NetWork.firstConnect(BVid);
+    suspend fun getCache(isContinue: MutableState<Boolean>, tipsText: MutableState<String>, count: Int = 1) {
+        try {
+            tipsText.value = "正在获取数据，请稍后。"
+            cache = NetWork.firstConnect(BVid);
+            isContinue.value = true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            isContinue.value = false
+            var c = count
+            if (++c < 3) {
+                tipsText.value = "网络错误，正在尝试${count}次。"
+                delay((1000L..3000L).random())
+                getCache(isContinue, tipsText, c)
+            } else {
+                tipsText.value = "重试${count}次失败，请检查你的网络连接！"
+            }
+        }
+
     }
 
-    private suspend fun numberOfJudgments() {
+    suspend fun numberOfJudgments() {
 //        if (page < 20) {
         getAllCache()
-        cache.comments.forEach { comment ->
+        cache!!.comments.forEach { comment ->
             comment.data.replies?.forEach {
                 userInfs.add(UserInf(it.mid, it.member.uname))
                 userInfs = userInfs.toSet().toMutableList()
