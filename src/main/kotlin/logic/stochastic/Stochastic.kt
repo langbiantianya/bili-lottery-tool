@@ -52,10 +52,10 @@ class Stochastic() {
 
     }
 
-    suspend fun numberOfJudgments() {
+    fun numberOfJudgments(): MutableSet<UserInf> {
 //        if (page < 20) {
 //        getAllCache()
-        cache!!.comments.forEach { comment ->
+        cache.comments.forEach { comment ->
             comment.data.replies?.forEach {
                 userInfs.add(UserInf(it.mid, it.member.uname))
                 userInfs = userInfs.toSet().toMutableList()
@@ -64,6 +64,7 @@ class Stochastic() {
         while (result.size < people) {
             result.add(userInfs.random())
         }
+
 
 //        }
 //        else {
@@ -84,6 +85,7 @@ class Stochastic() {
 //            }
 //
 //        }
+        return result
     }
 
 

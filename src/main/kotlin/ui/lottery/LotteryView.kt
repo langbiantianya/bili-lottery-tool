@@ -20,11 +20,14 @@ import kotlinx.coroutines.runBlocking
 import logic.stochastic.Stochastic
 import ui.ViewEnumerate
 import ui.common.AppTheme
+import util.cache.UserInf
 
 @Composable
 fun LotteryView(view: MutableState<ViewEnumerate>, stochastic: Stochastic) {
     var people by remember { mutableStateOf("") }
-    var page: MutableState<Int> = remember { mutableStateOf(stochastic.page) }
+    val page: MutableState<Int> = remember { mutableStateOf(0) }
+    val result: MutableState<Set<UserInf>> = remember { mutableStateOf(emptySet()) }
+    var buttonIsClick by remember { mutableStateOf(true) }
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,14 +53,17 @@ fun LotteryView(view: MutableState<ViewEnumerate>, stochastic: Stochastic) {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
             Button(
+                enabled = buttonIsClick,
                 onClick = {
-
                     stochastic.people = people.toInt()
+                    buttonIsClick = false
 //                    GlobalScope.launch
                     GlobalScope.launch {
                         println(people.toInt())
                         stochastic.getAllCache(page)
+                        result.value = stochastic.numberOfJudgments()
                     }
+
                 },
                 modifier = Modifier
                     .padding(end = 50.dp)
@@ -72,22 +78,22 @@ fun LotteryView(view: MutableState<ViewEnumerate>, stochastic: Stochastic) {
                 .border(2.dp, Color.Black)
                 .verticalScroll(rememberScrollState())
         ) {
-//            repeat(stochastic.cache.comments.size) {
-//                SelectionContainer {
-//                    Row {
-//                        Text(
-//                            "UID: $it",
-//                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 2.dp)
-//                        )
-//                        Text(
-//                            "Name: $it",
-//                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 3.dp, bottom = 2.dp)
-//                        )
-//                    }
-//
-//                }
-//
-//            }
+            repeat(result.value.size) {
+                SelectionContainer {
+                    Row {
+                        Text(
+                            "UID: ${result.value.toList()[it].uID}",
+                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 2.dp, bottom = 2.dp)
+                        )
+                        Text(
+                            "Name: ${result.value.toList()[it].uName}",
+                            modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 3.dp, bottom = 2.dp)
+                        )
+                    }
+
+                }
+
+            }
         }
     }
 
