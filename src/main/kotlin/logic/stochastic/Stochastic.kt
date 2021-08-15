@@ -19,9 +19,14 @@ class Stochastic() {
     val result: MutableSet<UserInf> = mutableSetOf()
 
 
-    suspend fun getAllCache() {
-        while (!cache!!.comments.last().data.cursor.is_end) {
-            cache!!.comments.add(NetWork.getComment(page++, cache!!.oldID))
+    suspend fun getAllCache(mPage: MutableState<Int>) {
+        println(1)
+        println(cache.comments.last().data.cursor.is_end)
+        while (!cache.comments.last().data.cursor.is_end) {
+            delay((1000L..3000L).random())
+            cache.comments.add(NetWork.getComment(page++, cache.oldID))
+            mPage.value = page
+            println(page)
         }
         page -= 2
 
@@ -47,10 +52,10 @@ class Stochastic() {
 
     }
 
-    suspend fun numberOfJudgments() {
+    fun numberOfJudgments(): MutableSet<UserInf> {
 //        if (page < 20) {
-        getAllCache()
-        cache!!.comments.forEach { comment ->
+//        getAllCache()
+        cache.comments.forEach { comment ->
             comment.data.replies?.forEach {
                 userInfs.add(UserInf(it.mid, it.member.uname))
                 userInfs = userInfs.toSet().toMutableList()
@@ -59,6 +64,7 @@ class Stochastic() {
         while (result.size < people) {
             result.add(userInfs.random())
         }
+
 
 //        }
 //        else {
@@ -79,6 +85,7 @@ class Stochastic() {
 //            }
 //
 //        }
+        return result
     }
 
 
